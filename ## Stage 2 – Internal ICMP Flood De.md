@@ -51,6 +51,8 @@ alert icmp $HOME_NET any -> any any (
     rev:1;
 )
 ```
+**Screenshot*
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/compare/main...dd3728-snort-project-stage2-screenshots?expand=1#diff-00056e095d96a7d2fc932108b32b8088f10a143935ac7c6e3296f4e33dc373b9
 
 ### Rule Logic Breakdown
 
@@ -91,6 +93,9 @@ ping -f -i 0.002 192.168.60.100
 * ~2ms interpacket gap
 * Sustained high-rate ICMP transmission
 
+**Screenshot*
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/compare/main...dd3728-snort-project-stage2-screenshots?expand=1#diff-aeba7a4bf897fa87344a75d96245c3a1c141007ca8232a0d5f9a7b872dac9547
+
 ### Wireshark Observations
 
 <div>
@@ -111,6 +116,9 @@ From the capture:
 
 **Interpretation:**
 This is a classic **high-speed ICMP flood** generated using native OS tools. Even though packet loss was 0%, the rate exceeded normal administrative ping behavior.
+
+**Screenshot*
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/compare/main...dd3728-snort-project-stage2-screenshots?expand=1#diff-9ccd5b37df95b7d93c982673248862ab2dbfeb614e4ec2ed0231b5ab9edf48e0
 
 ### Snort IDS Result
 
@@ -141,6 +149,9 @@ This confirms:
 sudo hping3 --icmp --flood 192.168.60.100
 ```
 
+**Screenshot*
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/compare/main...dd3728-snort-project-stage2-screenshots-1?expand=1#diff-c16a11daf94780f418fadae59ff0c9bbae63ce9343d1d50e5cd5e496b40f0643
+
 ### Observed Statistics
 
 * 315,219 packets transmitted
@@ -167,6 +178,9 @@ This is significantly more aggressive and mimics real-world attack tooling.
 * No meaningful spacing between frames
 * Same ICMP Type 8 (Echo Request)
 * Sustained packet saturation behavior
+
+**Screenshot*
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/blob/43a4d6aee74229affefb12cbdee7be629be78534/wireshark-hping3-capture.png
 
 This pattern resembles internal DoS conditions.
 
@@ -204,6 +218,11 @@ This confirms:
 * Clear source/destination mapping
 * Confirms attack behavior at packet level
 
+**Screenshot*
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/blob/43a4d6aee74229affefb12cbdee7be629be78534/wireshark-ping-f-req-reply-capture.png
+
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/blob/43a4d6aee74229affefb12cbdee7be629be78534/wireshark-hping3-capture.png
+
 ### Snort Alert Screenshot
 
 <div>
@@ -214,6 +233,11 @@ This confirms:
 * Correct source IP attribution (attacking host-Kali)
 * Correct internal network visibility
 * No false positives observed from normal traffic
+
+**Screenshot*
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/blob/43a4d6aee74229affefb12cbdee7be629be78534/snort-alert-output.png
+
+https://github.com/dd3728/Snort-within-Pfsense-and-Wireshark/blob/43a4d6aee74229affefb12cbdee7be629be78534/snort-alert-notepad.png
 
 This validates:
 
